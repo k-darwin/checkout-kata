@@ -2,10 +2,12 @@
 
 namespace Checkout.Pricing_Strategies;
 
-public class SpecialPricingStrategy : IPricingStrategy
+public class SpecialPricingStrategy(int unitPrice, int specialQuantity, int specialPrice) : IPricingStrategy
 {
     public int CalculatePrice(int quantity)
     {
-        throw new NotImplementedException();
+        var specialBundleCount = quantity / specialQuantity;
+        var remainder = quantity % specialQuantity;
+        return (specialBundleCount * specialPrice) + (remainder * unitPrice);
     }
 }
